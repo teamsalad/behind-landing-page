@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" md="6">
         <v-row no-gutters justify="center">
-          <v-col cols="4" md="6">
+          <v-col cols="6">
             <v-img src="@/assets/logo.png" max-width="100%" />
           </v-col>
         </v-row>
@@ -14,18 +14,26 @@
         </div>
         <br />
         <div
-          v-for="partnerEmployee in partnerEmployees"
-          v-bind:key="partnerEmployee"
+          v-for="(partnerEmployee, index) in partnerEmployees"
+          v-bind:key="index"
           class="text-center"
-        >{{ partnerEmployee }}에 다니는 사람한테 물어보세요!</div>
+        >
+          <v-row v-if="currCompanyIndex == index">
+            <v-col cols="6">
+              <v-img
+                v-bind:src="require(`@/assets/companyLogos/${partnerEmployee}.png`)"
+                height="10vh"
+                contain
+              />
+            </v-col>
+            <v-col cols="6">의 현직원에게 물어보세요!</v-col>
+          </v-row>
+        </div>
         <br />
-        <!-- <ul v-for="purpose in purposes" v-bind:key="purpose">
-          <li>{{ purpose }}</li>
-        </ul>-->
         <v-row>
           <v-text-field
             placeholder="ahead@behind.co"
-            label="email 을 등록해주시면 출시 기념 쿠폰을 보내드립니다"
+            v-bind:label="emailLabel"
             autofocus
             outlined
             clearable
@@ -44,6 +52,9 @@
 </template>
 <script>
 export default {
+  created() {
+    this.interval = setInterval(() => this.updateCurrCompanyIndex(), 2000);
+  },
   props: {
     title: String,
     oneLiner: String,
@@ -51,8 +62,14 @@ export default {
     purposes: Array,
     partnerEmployees: Array
   },
-  data: function() {
+  data() {
     return {
+      currCompanyIndex: 0,
+      emailLabel: "등록해주시면 출시 기념 쿠폰을 보내드립니다",
+      emailRegistrationSuccessMsg:
+        "가 성공적으로 출시 이벤트에 등록되었습니다.",
+      emailRegistrationFailMsg:
+        "죄송합니다. 무언가... 무언가.... 서버가 뻑났습니다. 뻐킹 갓...",
       userEmail: "",
       emailRules: []
     };
@@ -63,14 +80,12 @@ export default {
       if (this.validEmail(this.userEmail)) {
         // store this email (this.userEmail) to DB here
         // if successful, show following message
-        if (0) {
+        if (false) {
           alert(
-            "감사합니다.\n" +
-              this.userEmail +
-              "가 성공적으로 출시 이벤트에 등록되었습니다."
+            "감사합니다.\n" + this.userEmail + this.emailRegistrationSuccessMsg
           );
         } else {
-          alert("죄송합니다. 무언가 서버가 뻑났습니다. 뻐킹 갓...");
+          alert(this.emailRegistrationFailMsg);
         }
       } else {
         alert(
@@ -81,6 +96,12 @@ export default {
     validEmail: function(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
+    },
+    updateCurrCompanyIndex() {
+      this.currCompanyIndex++;
+      if (this.currCompanyIndex >= this.partnerEmployees.length) {
+        this.currCompanyIndex = 0;
+      }
     }
   }
 };

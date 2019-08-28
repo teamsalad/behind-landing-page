@@ -41,7 +41,20 @@ export default {
       "진실된 사내 문화에 대한 대화",
       "회사 맞춤 입사준비/이력서 컨설팅"
     ],
-    partnerEmployees: ["kakao", "LG전자", "삼성전자", "CJ", "현대카드", "NAVER"] // 로고 이미지로 변환
+    partnerEmployees: [
+      "cj",
+      "hyundai_card",
+      "kakao",
+      "lg_electronics",
+      "naver",
+      "samsung"
+    ] // 로고 이미지로 변환
   })
 };
 </script>
+
+<style>
+#app {
+  background-color: white;
+}
+</style>
