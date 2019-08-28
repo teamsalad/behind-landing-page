@@ -3,49 +3,49 @@
     <v-row>
       <v-col cols="12" md="6">
         <v-row no-gutters justify="center">
-          <v-col cols="6">
-            <v-img src="@/assets/logo.png" max-width="100%" />
+          <v-col cols="4">
+            <v-img src="@/assets/logo.png" alt="로고" contain />
           </v-col>
         </v-row>
-        <div>
+        <v-row no-gutters justify="center">
           <div class="title text-uppercase">{{ title }}</div>
-          <div>{{ oneLiner }}</div>
-          <div>{{ description }}</div>
-        </div>
+        </v-row>
+        <div>{{ oneLiner }}</div>
+        <div>{{ description }}</div>
         <br />
         <div
           v-for="(partnerEmployee, index) in partnerEmployees"
           v-bind:key="index"
           class="text-center"
         >
-          <v-row v-if="currCompanyIndex == index">
-            <v-col cols="6">
+          <v-row v-if="currCompanyIndex == index" justify="center">
+            <v-col cols="4">
               <v-img
                 v-bind:src="require(`@/assets/companyLogos/${partnerEmployee}.png`)"
                 height="10vh"
                 contain
               />
             </v-col>
-            <v-col cols="6">의 현직원에게 물어보세요!</v-col>
+            <v-col cols="8" align-self="center">현직자에게 물어보세요!</v-col>
           </v-row>
         </div>
         <br />
-        <v-row>
-          <v-text-field
-            placeholder="ahead@behind.co"
-            v-bind:label="emailLabel"
-            autofocus
-            outlined
-            clearable
-            v-model="userEmail"
-            :rules="emailRules"
-            v-on:keyup.enter="OnRegisterEmail"
-          ></v-text-field>
-          <v-btn outlined block color="indigo" v-on:click="OnRegisterEmail">등록하기</v-btn>
-        </v-row>
+        <v-text-field
+          placeholder="ahead@behind.co"
+          v-bind:label="emailLabel"
+          autofocus
+          outlined
+          clearable
+          v-model="userEmail"
+          :rules="emailRules"
+          v-on:keyup.enter="OnRegisterEmail"
+        ></v-text-field>
+        <v-btn outlined block color="indigo" v-on:click="OnRegisterEmail">등록하기</v-btn>
       </v-col>
       <v-col cols="12" md="6">
-        <v-card>프로토타입사진은요기에놓을겁니다</v-card>
+        <v-row no-gutters justify="center">
+          <v-img src="@/assets/prototype_iphone.png" alt="앱 예시 이미지" contain max-width="60%" />
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
