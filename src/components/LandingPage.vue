@@ -2,30 +2,32 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="6" align-self="center">
-        <div>
-          <v-row no-gutters justify="center">
-            <v-col cols="4">
-              <v-img src="@/assets/logo.png" alt="로고" contain />
-            </v-col>
-          </v-row>
-          <v-row no-gutters justify="center">
-            <span class="font-weight-bold headline text-uppercase">{{ title }}</span>
-          </v-row>
-          <v-row no-gutters justify="center">
-            <span class="overline font-weight-light text-uppercase">{{ subtitle }}</span>
-          </v-row>
-        </div>
-        <br />
-        <br />
-        <div class="text-center body-2">
-          <span>
-            {{ oneLiner }}
-            <br />
-            {{ description }}
-          </span>
+        <div id="company-info">
+          <div>
+            <v-row no-gutters justify="center">
+              <v-col cols="4">
+                <v-img src="@/assets/logo.png" alt="로고" contain />
+              </v-col>
+            </v-row>
+            <v-row no-gutters justify="center">
+              <span class="font-weight-bold headline text-uppercase">{{ title }}</span>
+            </v-row>
+            <v-row no-gutters justify="center">
+              <span class="overline font-weight-light text-uppercase">{{ subtitle }}</span>
+            </v-row>
+          </div>
+          <br />
+          <div class="text-center body-2">
+            <span>
+              {{ oneLiner }}
+              <br />
+              {{ description }}
+            </span>
+          </div>
         </div>
         <br />
         <div
+          id="partners"
           v-for="(partnerEmployee, index) in partnerEmployees"
           v-bind:key="index"
           class="text-center"
@@ -44,7 +46,7 @@
           </v-row>
         </div>
         <br />
-        <div>
+        <div id="registration">
           <v-text-field
             placeholder="ahead@behind.co"
             v-bind:label="emailLabel"
@@ -52,7 +54,6 @@
             outlined
             clearable
             v-model="userEmail"
-            :rules="emailRules"
             v-on:keyup.enter="OnRegisterEmail"
             class="font-weight-light"
           ></v-text-field>
@@ -62,8 +63,9 @@
             color="indigo"
             v-on:click="OnRegisterEmail"
             class="font-weight-medium"
-          >등록하기</v-btn>
+          >{{ emailRegistrationButton }}</v-btn>
         </div>
+        <br />
       </v-col>
       <v-col id="prototype-photo-column" cols="12" md="6" align-self="center">
         <v-row no-gutters justify="center">
@@ -101,14 +103,14 @@ export default {
     return {
       prototypePhotoWidth: 0,
       currCompanyIndex: 0,
-      askCurrEmployee: "의 현직자와 소통하세요!",
-      emailLabel: "등록해주시면 출시 기념 쿠폰을 보내드립니다",
+      askCurrEmployee: "의 현직자에게 물어보세요!",
+      emailLabel: "사전등록시 출시기념 쿠폰을 보내드립니다",
+      emailRegistrationButton: "등록하고 쿠폰받기",
       emailRegistrationSuccessMsg:
         "가 성공적으로 출시 이벤트에 등록되었습니다.",
       emailRegistrationFailMsg:
         "죄송합니다. 무언가... 무언가.... 서버가 뻑났습니다. 뻐킹 갓...",
-      userEmail: "",
-      emailRules: []
+      userEmail: ""
     };
   },
   methods: {

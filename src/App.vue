@@ -16,6 +16,13 @@
         v-bind:partnerEmployees="partnerEmployees"
       />
     </v-content>
+
+    <div id="footer" class="text-center body-2 pa-1">
+      <div>{{ customerService }}</div>
+      <div>&copy; {{ new Date().getFullYear() }} {{ title }}</div>
+    </div>
+
+    <!-- <div class="flex-grow-1"></div> -->
   </v-app>
 </template>
 
@@ -29,7 +36,7 @@ export default {
   },
   data: () => ({
     title: "behind",
-    subtitle: "what really happens behind the curtain",
+    subtitle: "what really happens behind the scenes",
     oneLiner: "현직자를 만나는 가장 심플한 방법",
     description: "현직자와 구직자간의 생생한 채팅 서비스",
     purposes: [
@@ -42,8 +49,9 @@ export default {
       "kakao",
       "lg_electronics",
       "naver",
-      "samsung"
-    ] // 로고 이미지로 변환
+      "samsung_electronics"
+    ],
+    customerService: "문의: behind.youngjun@gmail.com"
   })
 };
 </script>
@@ -51,5 +59,9 @@ export default {
 <style>
 #app {
   background-color: white;
+}
+
+#footer {
+  background-color: lightgray;
 }
 </style>
