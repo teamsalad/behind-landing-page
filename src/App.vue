@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
+      <v-toolbar-title class="font-weight-black display-1 text-uppercase">
         <span>{{ title }}</span>
       </v-toolbar-title>
     </v-app-bar>
@@ -31,7 +31,7 @@ export default {
     title: "behind",
     subtitle: "what really happens behind the curtain",
     oneLiner: "현직자를 만나는 가장 심플한 방법",
-    description: "현직자와 구직자간의 생생한 Q&A 서비스",
+    description: "현직자와 구직자간의 생생한 채팅 서비스",
     purposes: [
       "진실된 사내 문화에 대한 대화",
       "회사 맞춤 입사준비/이력서 컨설팅"

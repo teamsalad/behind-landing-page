@@ -1,21 +1,29 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" md="6">
-        <v-row no-gutters justify="center">
-          <v-col cols="4">
-            <v-img src="@/assets/logo.png" alt="로고" contain />
-          </v-col>
-        </v-row>
-        <v-row no-gutters justify="center">
-          <span class="bold text-uppercase">{{ title }}</span>
-          <span class="font-weight-light text-uppercase">{{ subtitle }}</span>
-        </v-row>
+      <v-col cols="12" md="6" align-self="center">
+        <div>
+          <v-row no-gutters justify="center">
+            <v-col cols="4">
+              <v-img src="@/assets/logo.png" alt="로고" contain />
+            </v-col>
+          </v-row>
+          <v-row no-gutters justify="center">
+            <span class="font-weight-bold headline text-uppercase">{{ title }}</span>
+          </v-row>
+          <v-row no-gutters justify="center">
+            <span class="overline font-weight-light text-uppercase">{{ subtitle }}</span>
+          </v-row>
+        </div>
         <br />
         <br />
-        <div>{{ oneLiner }}</div>
-        <div>{{ description }}</div>
-        <br />
+        <div class="text-center body-2">
+          <span>
+            {{ oneLiner }}
+            <br />
+            {{ description }}
+          </span>
+        </div>
         <br />
         <div
           v-for="(partnerEmployee, index) in partnerEmployees"
@@ -30,24 +38,34 @@
                 contain
               />
             </v-col>
-            <v-col cols="8" md="6" align-self="center">현직자에게 물어보세요!</v-col>
+            <v-col cols="8" md="6" align-self="center">
+              <span class="font-weight-black text-center body-1">{{ askCurrEmployee }}</span>
+            </v-col>
           </v-row>
         </div>
         <br />
-        <br />
-        <v-text-field
-          placeholder="ahead@behind.co"
-          v-bind:label="emailLabel"
-          autofocus
-          outlined
-          clearable
-          v-model="userEmail"
-          :rules="emailRules"
-          v-on:keyup.enter="OnRegisterEmail"
-        ></v-text-field>
-        <v-btn outlined block color="indigo" v-on:click="OnRegisterEmail">등록하기</v-btn>
+        <div>
+          <v-text-field
+            placeholder="ahead@behind.co"
+            v-bind:label="emailLabel"
+            autofocus
+            outlined
+            clearable
+            v-model="userEmail"
+            :rules="emailRules"
+            v-on:keyup.enter="OnRegisterEmail"
+            class="font-weight-light"
+          ></v-text-field>
+          <v-btn
+            outlined
+            block
+            color="indigo"
+            v-on:click="OnRegisterEmail"
+            class="font-weight-medium"
+          >등록하기</v-btn>
+        </div>
       </v-col>
-      <v-col id="prototype-photo-column" cols="12" md="6">
+      <v-col id="prototype-photo-column" cols="12" md="6" align-self="center">
         <v-row no-gutters justify="center">
           <v-img
             src="@/assets/prototype_iphone.png"
@@ -83,6 +101,7 @@ export default {
     return {
       prototypePhotoWidth: 0,
       currCompanyIndex: 0,
+      askCurrEmployee: "의 현직자와 소통하세요!",
       emailLabel: "등록해주시면 출시 기념 쿠폰을 보내드립니다",
       emailRegistrationSuccessMsg:
         "가 성공적으로 출시 이벤트에 등록되었습니다.",
