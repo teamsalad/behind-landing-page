@@ -8,10 +8,14 @@
           </v-col>
         </v-row>
         <v-row no-gutters justify="center">
-          <div class="title text-uppercase">{{ title }}</div>
+          <span class="bold text-uppercase">{{ title }}</span>
+          <span class="font-weight-light text-uppercase">{{ subtitle }}</span>
         </v-row>
+        <br />
+        <br />
         <div>{{ oneLiner }}</div>
         <div>{{ description }}</div>
+        <br />
         <br />
         <div
           v-for="(partnerEmployee, index) in partnerEmployees"
@@ -19,16 +23,17 @@
           class="text-center"
         >
           <v-row v-if="currCompanyIndex == index" justify="center">
-            <v-col cols="4">
+            <v-col cols="4" md="6">
               <v-img
                 v-bind:src="require(`@/assets/companyLogos/${partnerEmployee}.png`)"
                 height="10vh"
                 contain
               />
             </v-col>
-            <v-col cols="8" align-self="center">현직자에게 물어보세요!</v-col>
+            <v-col cols="8" md="6" align-self="center">현직자에게 물어보세요!</v-col>
           </v-row>
         </div>
+        <br />
         <br />
         <v-text-field
           placeholder="ahead@behind.co"
@@ -42,9 +47,14 @@
         ></v-text-field>
         <v-btn outlined block color="indigo" v-on:click="OnRegisterEmail">등록하기</v-btn>
       </v-col>
-      <v-col cols="12" md="6">
+      <v-col id="prototype-photo-column" cols="12" md="6">
         <v-row no-gutters justify="center">
-          <v-img src="@/assets/prototype_iphone.png" alt="앱 예시 이미지" contain max-width="60%" />
+          <v-img
+            src="@/assets/prototype_iphone.png"
+            alt="앱 예시 이미지"
+            contain
+            v-bind:max-width="prototypePhotoWidth"
+          />
         </v-row>
       </v-col>
     </v-row>
@@ -55,8 +65,15 @@ export default {
   created() {
     this.interval = setInterval(() => this.updateCurrCompanyIndex(), 2000);
   },
+  mounted() {
+    this.setPrototypePhotoWidth();
+  },
+  updated() {
+    this.setPrototypePhotoWidth();
+  },
   props: {
     title: String,
+    subtitle: String,
     oneLiner: String,
     description: String,
     purposes: Array,
@@ -64,6 +81,7 @@ export default {
   },
   data() {
     return {
+      prototypePhotoWidth: 0,
       currCompanyIndex: 0,
       emailLabel: "등록해주시면 출시 기념 쿠폰을 보내드립니다",
       emailRegistrationSuccessMsg:
@@ -97,11 +115,20 @@ export default {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
+    // update the rolling company (logo) index
     updateCurrCompanyIndex() {
       this.currCompanyIndex++;
       if (this.currCompanyIndex >= this.partnerEmployees.length) {
         this.currCompanyIndex = 0;
       }
+    },
+    // set the width of prototype photo
+    // smaller of 60% of the column or 50% of the screen
+    setPrototypePhotoWidth() {
+      let colWidth = document.getElementById("prototype-photo-column")
+        .offsetWidth;
+      let screenWidth = screen.width;
+      this.prototypePhotoWidth = Math.min(colWidth * 0.6, screenWidth * 0.5);
     }
   }
 };
