@@ -38,7 +38,7 @@ export default {
     title: "behind",
     subtitle: "what really happens behind the scenes",
     oneLiner: "현직자를 만나는 가장 심플한 방법",
-    description: "현직자와 구직자간의 생생한 채팅 서비스",
+    description: "현직자와 구직자간의 생생한 Q&A 세션을 주선해드립니다",
     purposes: [
       "진실된 사내 문화에 대한 대화",
       "회사 맞춤 입사준비/이력서 컨설팅"
@@ -51,7 +51,7 @@ export default {
       "naver",
       "samsung_electronics"
     ],
-    customerService: "문의: behind.youngjun@gmail.com"
+    customerService: "문의메일: behind.youngjun@gmail.com"
   })
 };
 </script>

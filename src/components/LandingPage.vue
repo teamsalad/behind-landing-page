@@ -17,12 +17,10 @@
             </v-row>
           </div>
           <br />
-          <div class="text-center body-2">
-            <span>
-              {{ oneLiner }}
-              <br />
-              {{ description }}
-            </span>
+          <div class="text-center font-weight-light">
+            {{ oneLiner }}
+            <br />
+            {{ description }}
           </div>
         </div>
         <br />
@@ -47,23 +45,24 @@
         </div>
         <br />
         <div id="registration">
-          <v-text-field
-            placeholder="ahead@behind.co"
-            v-bind:label="emailLabel"
-            autofocus
-            outlined
-            clearable
-            v-model="userEmail"
-            v-on:keyup.enter="OnRegisterEmail"
-            class="font-weight-light"
-          ></v-text-field>
-          <v-btn
-            outlined
-            block
-            color="indigo"
-            v-on:click="OnRegisterEmail"
-            class="font-weight-medium"
-          >{{ emailRegistrationButton }}</v-btn>
+          <form @submit="OnRegisterEmail">
+            <v-text-field
+              v-model="userEmail"
+              placeholder="ahead@behind.co"
+              v-bind:label="emailLabel"
+              autofocus
+              outlined
+              clearable
+              class="font-weight-light"
+            ></v-text-field>
+            <v-btn
+              type="submit"
+              outlined
+              block
+              color="indigo"
+              class="font-weight-medium"
+            >{{ emailRegBtnText }}</v-btn>
+          </form>
         </div>
         <br />
       </v-col>
@@ -104,33 +103,43 @@ export default {
       prototypePhotoWidth: 0,
       currCompanyIndex: 0,
       askCurrEmployee: "의 현직자에게 물어보세요!",
-      emailLabel: "사전등록시 출시기념 쿠폰을 보내드립니다",
-      emailRegistrationButton: "등록하고 쿠폰받기",
-      emailRegistrationSuccessMsg:
-        "가 성공적으로 출시 이벤트에 등록되었습니다.",
-      emailRegistrationFailMsg:
-        "죄송합니다. 무언가... 무언가.... 서버가 뻑났습니다. 뻐킹 갓...",
+      emailRegUrl: "",
+      emailLabel: "출시시 사전등록 쿠폰을 보내드립니다",
+      emailRegBtnText: "등록하고 쿠폰받기",
+      emailRegSuccessMsg:
+        "가 성공적으로 사전등록 되었습니다. 출시시 사전등록 쿠폰을 보내드립니다.",
+      emailRegFailMsg: "죄송합니다. 현재 신규등록이 제한되어 있습니다.",
       userEmail: ""
     };
   },
   methods: {
     OnRegisterEmail: function(e) {
       e.preventDefault();
-      if (this.validEmail(this.userEmail)) {
-        // store this email (this.userEmail) to DB here
-        // if successful, show following message
-        if (false) {
-          alert(
-            "감사합니다.\n" + this.userEmail + this.emailRegistrationSuccessMsg
-          );
-        } else {
-          alert(this.emailRegistrationFailMsg);
-        }
-      } else {
-        alert(
-          "이벤트 등록에 실패하였습니다.\n입력하신 email 주소를 다시 확인해주세요."
-        );
+
+      const email = this.userEmail;
+      const emailRegUrl = this.emailRegUrl;
+      const emailRegSuccessMsg = this.emailRegSuccessMsg;
+      const emailRegFailMsg = this.emailRegFailMsg;
+
+      // checkemail format before storing, and let the user know
+      if (!this.validEmail(email)) {
+        alert("입력하신 email 주소(" + email + ")를 다시 확인해주세요.");
+        return;
       }
+
+      // store this email (this.userEmail) to DB here
+      this.axios
+        .post(emailRegUrl, {
+          email: email
+        })
+        .then(function(response) {
+          console.log(response.data);
+          alert(email + emailRegSuccessMsg);
+        })
+        .catch(function(error) {
+          console.error(error);
+          alert(emailRegFailMsg);
+        });
     },
     validEmail: function(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -146,9 +155,9 @@ export default {
     // set the width of prototype photo
     // smaller of 60% of the column or 50% of the screen
     setPrototypePhotoWidth() {
-      let colWidth = document.getElementById("prototype-photo-column")
+      const colWidth = document.getElementById("prototype-photo-column")
         .offsetWidth;
-      let screenWidth = screen.width;
+      const screenWidth = screen.width;
       this.prototypePhotoWidth = Math.min(colWidth * 0.6, screenWidth * 0.5);
     }
   }
