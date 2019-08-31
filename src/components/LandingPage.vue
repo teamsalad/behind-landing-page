@@ -104,7 +104,7 @@ export default {
       prototypePhotoWidth: 0,
       prototypePhotoHeight: 0,
       currCompanyIndex: 0,
-      askCurrEmployee: "의 현직자에게 물어보세요!",
+      askCurrEmployee: "의 재직자에게 물어보세요!",
       emailRegUrl:
         "https://hq80mfsrh3.execute-api.ap-northeast-2.amazonaws.com/production/email-subscriptions",
       emailLabel: "출시시 사전등록 쿠폰을 보내드립니다",
