@@ -30,7 +30,7 @@
           v-bind:key="index"
           class="text-center"
         >
-          <v-row v-if="currCompanyIndex == index" justify="center">
+          <v-row v-if="currCompanyIndex == index">
             <v-col cols="4" md="6">
               <v-img
                 v-bind:src="require(`@/assets/companyLogos/${partnerEmployee}.png`)"
@@ -48,7 +48,7 @@
           <form @submit="OnRegisterEmail">
             <v-text-field
               v-model="userEmail"
-              placeholder="ahead@behind.co"
+              placeholder="infront@thebehind.com"
               v-bind:label="emailLabel"
               autofocus
               outlined
@@ -105,12 +105,13 @@ export default {
       prototypePhotoHeight: 0,
       currCompanyIndex: 0,
       askCurrEmployee: "의 현직자에게 물어보세요!",
-      emailRegUrl: "",
+      emailRegUrl:
+        "https://hq80mfsrh3.execute-api.ap-northeast-2.amazonaws.com/production/email-subscriptions",
       emailLabel: "출시시 사전등록 쿠폰을 보내드립니다",
       emailRegBtnText: "등록하고 쿠폰받기",
       emailRegSuccessMsg:
-        "가 성공적으로 사전등록 되었습니다. 출시시 사전등록 쿠폰을 보내드립니다.",
-      emailRegFailMsg: "죄송합니다. 현재 신규등록이 제한되어 있습니다.",
+        "가 성공적으로 사전등록 되었습니다.\n출시시 사전등록 쿠폰을 보내드립니다.",
+      emailRegFailMsg: "죄송합니다.\n현재 신규등록이 제한되어 있습니다.",
       userEmail: ""
     };
   },
@@ -124,7 +125,10 @@ export default {
       const emailRegFailMsg = this.emailRegFailMsg;
 
       // checkemail format before storing, and let the user know
-      if (!this.validEmail(email)) {
+      if (email == "") {
+        alert("email 주소를 입력해주세요.");
+        return;
+      } else if (!this.validEmail(email)) {
         alert("입력하신 email 주소(" + email + ")를 다시 확인해주세요.");
         return;
       }
@@ -135,11 +139,11 @@ export default {
           email: email
         })
         .then(function(response) {
-          console.log(response.data);
+          // console.log(response.data);
           alert(email + emailRegSuccessMsg);
         })
         .catch(function(error) {
-          console.error(error);
+          // console.error(error);
           alert(emailRegFailMsg);
         });
     },
