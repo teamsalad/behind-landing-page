@@ -73,6 +73,7 @@
             alt="앱 예시 이미지"
             contain
             v-bind:max-width="prototypePhotoWidth"
+            v-bind:max-height="prototypePhotoHeight"
           />
         </v-row>
       </v-col>
@@ -85,10 +86,10 @@ export default {
     this.interval = setInterval(() => this.updateCurrCompanyIndex(), 2000);
   },
   mounted() {
-    this.setPrototypePhotoWidth();
+    this.setPrototypePhotoSize();
   },
   updated() {
-    this.setPrototypePhotoWidth();
+    this.setPrototypePhotoSize();
   },
   props: {
     title: String,
@@ -101,6 +102,7 @@ export default {
   data() {
     return {
       prototypePhotoWidth: 0,
+      prototypePhotoHeight: 0,
       currCompanyIndex: 0,
       askCurrEmployee: "의 현직자에게 물어보세요!",
       emailRegUrl: "",
@@ -153,12 +155,15 @@ export default {
       }
     },
     // set the width of prototype photo
-    // smaller of 60% of the column or 50% of the screen
-    setPrototypePhotoWidth() {
+    // max-width: smaller of 60% of the column or 60% of the screen
+    // max-height: 60% of the screen
+    setPrototypePhotoSize() {
       const colWidth = document.getElementById("prototype-photo-column")
         .offsetWidth;
       const screenWidth = screen.width;
-      this.prototypePhotoWidth = Math.min(colWidth * 0.6, screenWidth * 0.5);
+      this.prototypePhotoWidth = Math.min(colWidth * 0.6, screenWidth * 0.6);
+
+      this.prototypePhotoHeight = 0.6 * screen.height;
     }
   }
 };
