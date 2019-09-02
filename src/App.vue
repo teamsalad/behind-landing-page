@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title class="font-weight-black display-1 text-uppercase">
+      <v-toolbar-title class="font-weight-black display-1">
         <span>{{ title }}</span>
       </v-toolbar-title>
     </v-app-bar>

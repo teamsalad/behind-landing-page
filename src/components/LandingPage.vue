@@ -5,13 +5,14 @@
         <div id="company-info">
           <div>
             <v-row no-gutters justify="center">
-              <v-col cols="4">
-                <v-img src="@/assets/logo.png" alt="로고" contain />
+              <v-col cols="6">
+                <v-img src="@/assets/behind-logo.png" alt="로고" contain />
               </v-col>
             </v-row>
-            <v-row no-gutters justify="center">
-              <span class="font-weight-bold headline text-uppercase">{{ title }}</span>
-            </v-row>
+            <!-- <v-row no-gutters justify="center">
+              <span class="font-weight-bold headline">{{ title }}</span>
+            </v-row>-->
+            <br />
             <v-row no-gutters justify="center">
               <span class="overline font-weight-light text-uppercase">{{ subtitle }}</span>
             </v-row>
