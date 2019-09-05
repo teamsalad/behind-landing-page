@@ -221,6 +221,8 @@ export default {
 
       if (!this.isMobile()) {
         this.prototypePhotoHeight = 0.6 * screen.height;
+      } else {
+        this.prototypePhotoHeight = screen.height;
       }
     },
     OnRegisterPhoneNumber: function(e) {
