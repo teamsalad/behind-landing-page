@@ -87,12 +87,11 @@
           </form>
         </div>-->
         <br />
-        <!-- <v-row no-gutters justify="end">
+        <v-row no-gutters justify="end">
           <v-col cols="4" md="2">
-            <v-img src="@/assets/kakaotalk-icon.png" alt="톡상담" />
+            <div id="plusfriend-chat-button"></div>
           </v-col>
-        </v-row>-->
-        <div id="plusfriend-chat-button"></div>
+        </v-row>
         <br />
       </v-col>
       <v-col id="prototype-photo-column" cols="12" md="6" align-self="center">
