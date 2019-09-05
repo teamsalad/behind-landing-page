@@ -97,7 +97,7 @@
       <v-col id="prototype-photo-column" cols="12" md="6" align-self="center">
         <v-row no-gutters justify="center">
           <v-img
-            src="@/assets/prototype_iphone.png"
+            src="@/assets/landing-iphone.png"
             alt="앱 예시 이미지"
             contain
             v-bind:max-width="prototypePhotoWidth"
@@ -156,7 +156,7 @@ export default {
       phoneRegBtnText: "전화번호 등록하고 10% 할인 받기",
       userPhoneNumber: "",
       phoneNumberRegSucessMsg: "가 성공적으로 등록되었습니다.",
-      emailRegFailMsg: "죄송합니다.\n현재 등록에 문제가 있습니다."
+      phoneRegFailMsg: "죄송합니다.\n현재 등록에 문제가 있습니다."
     };
   },
   methods: {
@@ -202,16 +202,26 @@ export default {
         this.currCompanyIndex = 0;
       }
     },
+
+    isMobile() {
+      if (screen.width <= 760) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     // set the width of prototype photo
     // max-width: smaller of 60% of the column or 60% of the screen
-    // max-height: 60% of the screen
+    // max-height: 60% of the screen if desktop
     setPrototypePhotoSize() {
       const colWidth = document.getElementById("prototype-photo-column")
         .offsetWidth;
       const screenWidth = screen.width;
-      this.prototypePhotoWidth = Math.min(colWidth * 0.6, screenWidth * 0.6);
+      this.prototypePhotoWidth = Math.min(colWidth * 0.8, screenWidth * 0.8);
 
-      this.prototypePhotoHeight = 0.6 * screen.height;
+      if (!this.isMobile()) {
+        this.prototypePhotoHeight = 0.6 * screen.height;
+      }
     },
     OnRegisterPhoneNumber: function(e) {
       e.preventDefault();
@@ -238,7 +248,7 @@ export default {
         })
         .catch(function(error) {
           // console.error(error);
-          alert(emailRegFailMsg);
+          alert(phoneRegFailMsg);
         });
     }
   }
