@@ -1,11 +1,5 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="font-weight-black display-1">
-        <span>{{ title }}</span>
-      </v-toolbar-title>
-    </v-app-bar>
-
     <v-content>
       <LandingPage
         v-bind:title="title"

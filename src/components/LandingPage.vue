@@ -5,8 +5,8 @@
         <div id="company-info">
           <div>
             <v-row no-gutters justify="center">
-              <v-col cols="6">
-                <v-img src="@/assets/behind-logo.png" alt="로고" contain />
+              <v-col cols="8" md="6">
+                <v-img src="@/assets/behind-logo-whitebg.png" alt="로고" contain />
               </v-col>
             </v-row>
             <!-- <v-row no-gutters justify="center">
@@ -18,10 +18,10 @@
             </v-row>
           </div>
           <br />
-          <div class="text-center font-weight-light">
-            {{ oneLiner }}
+          <div class="text-center font-weight-bold">
+            <span class="headline font-weight-bold">{{ oneLiner }}</span>
             <br />
-            {{ description }}
+            <span class="font-weight-bold">{{ description }}</span>
           </div>
         </div>
         <br />
@@ -45,7 +45,28 @@
           </v-row>
         </div>
         <br />
-        <div id="registration">
+        <div id="phone-registration">
+          <form @submit="OnRegisterPhoneNumber">
+            <v-text-field
+              v-model="userPhoneNumber"
+              placeholder="010-1234-5678"
+              v-bind:label="phoneNumberLabel"
+              autofocus
+              outlined
+              clearable
+              class="font-weight-light"
+            ></v-text-field>
+            <v-btn
+              v-bind:disabled="phoneRegisterDisabled"
+              type="submit"
+              outlined
+              block
+              color="indigo"
+              class="font-weight-bold"
+            >{{ phoneRegBtnText }}</v-btn>
+          </form>
+        </div>
+        <!-- <div id="email-registration">
           <form @submit="OnRegisterEmail">
             <v-text-field
               v-model="userEmail"
@@ -64,7 +85,14 @@
               class="font-weight-medium"
             >{{ emailRegBtnText }}</v-btn>
           </form>
-        </div>
+        </div>-->
+        <br />
+        <!-- <v-row no-gutters justify="end">
+          <v-col cols="4" md="2">
+            <v-img src="@/assets/kakaotalk-icon.png" alt="톡상담" />
+          </v-col>
+        </v-row>-->
+        <div id="plusfriend-chat-button"></div>
         <br />
       </v-col>
       <v-col id="prototype-photo-column" cols="12" md="6" align-self="center">
@@ -88,6 +116,15 @@ export default {
   },
   mounted() {
     this.setPrototypePhotoSize();
+    //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init("ef6b101e44b5da5877ac6c493f8e8d68");
+    // 플러스친구 1:1채팅 버튼을 생성합니다.
+    Kakao.PlusFriend.createChatButton({
+      container: "#plusfriend-chat-button",
+      plusFriendId: "_xcLqmC" // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+    });
+    //]]>
   },
   updated() {
     this.setPrototypePhotoSize();
@@ -105,15 +142,22 @@ export default {
       prototypePhotoWidth: 0,
       prototypePhotoHeight: 0,
       currCompanyIndex: 0,
-      askCurrEmployee: "의 재직자에게 물어보세요!",
-      emailRegUrl:
+      askCurrEmployee: "지금 바로 물어보세요!",
+      registerServerUrl:
         "https://hq80mfsrh3.execute-api.ap-northeast-2.amazonaws.com/production/email-subscriptions",
       emailLabel: "출시시 사전등록 쿠폰을 보내드립니다",
       emailRegBtnText: "등록하고 쿠폰받기",
       emailRegSuccessMsg:
         "가 성공적으로 사전등록 되었습니다.\n출시시 사전등록 쿠폰을 보내드립니다.",
       emailRegFailMsg: "죄송합니다.\n현재 신규등록이 제한되어 있습니다.",
-      userEmail: ""
+      userEmail: "",
+
+      phoneRegisterDisabled: false,
+      phoneNumberLabel: "전화번호",
+      phoneRegBtnText: "전화번호 등록하고 10% 할인 받기",
+      userPhoneNumber: "",
+      phoneNumberRegSucessMsg: "가 성공적으로 등록되었습니다.",
+      emailRegFailMsg: "죄송합니다.\n현재 등록에 문제가 있습니다."
     };
   },
   methods: {
@@ -121,7 +165,7 @@ export default {
       e.preventDefault();
 
       const email = this.userEmail;
-      const emailRegUrl = this.emailRegUrl;
+      const registerServerUrl = this.registerServerUrl;
       const emailRegSuccessMsg = this.emailRegSuccessMsg;
       const emailRegFailMsg = this.emailRegFailMsg;
 
@@ -136,7 +180,7 @@ export default {
 
       // store this email (this.userEmail) to DB here
       this.axios
-        .post(emailRegUrl, {
+        .post(registerServerUrl, {
           email: email
         })
         .then(function(response) {
@@ -169,6 +213,34 @@ export default {
       this.prototypePhotoWidth = Math.min(colWidth * 0.6, screenWidth * 0.6);
 
       this.prototypePhotoHeight = 0.6 * screen.height;
+    },
+    OnRegisterPhoneNumber: function(e) {
+      e.preventDefault();
+
+      const userPhoneNumber = this.userPhoneNumber;
+      const registerServerUrl = this.registerServerUrl;
+      const phoneNumberRegSucessMsg = this.phoneNumberRegSucessMsg;
+      const emailRegFailMsg = this.emailRegFailMsg;
+
+      var currentDateWithFormat = new Date().toJSON().slice(0, 10);
+      const stringToSend =
+        "등록일: " + currentDateWithFormat + ", 전화번호: " + userPhoneNumber;
+
+      this.phoneRegBtnText = "등록중입니다. 잠시만 기다려주세요.";
+      this.phoneRegisterDisabled = true;
+
+      this.axios
+        .post(registerServerUrl, {
+          email: stringToSend
+        })
+        .then(function(response) {
+          // console.log(response.data);
+          alert(userPhoneNumber + phoneNumberRegSucessMsg);
+        })
+        .catch(function(error) {
+          // console.error(error);
+          alert(emailRegFailMsg);
+        });
     }
   }
 };
