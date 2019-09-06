@@ -26,7 +26,6 @@
             <span class="font-weight-bold">{{ description }}</span>
           </div>
         </div>
-        <br />
         <div
           id="partners"
           v-for="(partnerEmployee, index) in partnerEmployees"
@@ -34,14 +33,14 @@
           class="text-center"
         >
           <v-row v-if="currCompanyIndex == index">
-            <v-col cols="4" md="6">
+            <v-col cols="5" md="6">
               <v-img
                 v-bind:src="require(`@/assets/companyLogos/${partnerEmployee}.png`)"
                 height="10vh"
                 contain
               />
             </v-col>
-            <v-col cols="8" md="6" align-self="center">
+            <v-col cols="7" md="6" align-self="center">
               <span class="font-weight-black text-center body-1">{{ askCurrEmployee }}</span>
             </v-col>
           </v-row>
