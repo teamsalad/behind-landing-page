@@ -19,8 +19,10 @@
           </div>
           <br />
           <div class="text-center font-weight-bold">
-            <span class="headline font-weight-bold">{{ oneLiner }}</span>
-            <br />
+            <div>
+              <span v-if="!isMobile()" class="display-1 font-weight-bold">{{ oneLiner }}</span>
+              <pre v-else class="display-1 font-weight-bold">{{ oneLiner }}</pre>
+            </div>
             <span class="font-weight-bold">{{ description }}</span>
           </div>
         </div>
