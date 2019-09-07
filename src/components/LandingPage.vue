@@ -90,12 +90,22 @@
         <br />
         <v-row no-gutters justify="end">
           <v-col cols="3" md="2">
-            <a href="https://fb.me/behind.co">
-              <v-img src="@/assets/fbicon.png" alt="페이스북페이지" contain max-height="44" />
-            </a>
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <a v-on="on" href="https://fb.me/behind.co">
+                  <v-img src="@/assets/fbicon.png" alt="페이스북페이지" contain max-height="44" />
+                </a>
+              </template>
+              <span>behind facebook page로 이동</span>
+            </v-tooltip>
           </v-col>
           <v-col cols="3" md="2">
-            <div id="plusfriend-chat-button"></div>
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <div id="plusfriend-chat-button" v-on="on"></div>
+              </template>
+              <span>behind와 카카오톡 플러스 친구 1:1 채팅</span>
+            </v-tooltip>
           </v-col>
         </v-row>
         <br />
