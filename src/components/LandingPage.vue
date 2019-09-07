@@ -89,7 +89,12 @@
         </div>-->
         <br />
         <v-row no-gutters justify="end">
-          <v-col cols="4" md="2">
+          <v-col cols="3" md="2">
+            <a href="https://fb.me/behind.co">
+              <v-img src="@/assets/fbicon.png" alt="페이스북페이지" contain max-height="44" />
+            </a>
+          </v-col>
+          <v-col cols="3" md="2">
             <div id="plusfriend-chat-button"></div>
           </v-col>
         </v-row>
