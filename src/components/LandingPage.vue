@@ -44,6 +44,9 @@
               <span class="font-weight-black text-center body-1">{{ askCurrEmployee }}</span>
             </v-col>
           </v-row>
+          <div
+            class="d-none"
+          >카카오, LG전자, 삼성전자, CJ E&M, 현대카드, 네이버, 제일기획, 기업은행, 국민은행, DHL, Fedex, 현대자동차, Lockheed Martin, Facebook, 강남언니, 라인</div>
         </div>
         <br />
         <div id="phone-registration">
@@ -99,7 +102,7 @@
               <span>behind facebook page로 이동</span>
             </v-tooltip>
           </v-col>
-          <v-col cols="3" md="2">
+          <v-col cols="4" md="2">
             <v-tooltip top>
               <template v-slot:activator="{ on }">
                 <div id="plusfriend-chat-button" v-on="on"></div>

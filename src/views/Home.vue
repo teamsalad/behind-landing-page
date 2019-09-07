@@ -10,13 +10,10 @@
         v-bind:partnerEmployees="partnerEmployees"
       />
     </v-content>
-
     <div id="footer" class="text-center body-2 pa-1">
       <div>{{ customerService }}</div>
       <div>&copy; {{ new Date().getFullYear() }} {{ title }}</div>
     </div>
-
-    <!-- <div class="flex-grow-1"></div> -->
   </v-app>
 </template>
 
@@ -39,12 +36,21 @@ export default {
       "회사 맞춤 입사준비/이력서 컨설팅"
     ],
     partnerEmployees: [
-      "cj",
-      "hyundai_card",
+      "cheil",
+      "cj-enm",
+      "dhl",
+      "facebook",
+      "fedex",
+      "hyundai-card",
+      "hyundai-motors",
+      "ibkbank",
       "kakao",
-      "lg_electronics",
+      "kbbank",
+      "lg-electronics",
+      "line",
+      "lockheedmartin",
       "naver",
-      "samsung_electronics"
+      "samsung-electronics"
     ],
     customerService: "문의: behind.youngjun@gmail.com"
   })
