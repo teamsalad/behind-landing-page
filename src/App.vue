@@ -7,12 +7,8 @@
   </div>
 </template>
 
-<style>
-/* #app {
-  background-color: white;
-}
-
-#footer {
-  background-color: lightgray;
-} */
-</style>
+<script>
+export default {
+  name: "App"
+};
+</script>
