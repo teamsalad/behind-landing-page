@@ -1,4 +1,3 @@
-# BEHIND landing page
-vue 2.6 & vuetify 2.0
+# BEHIND landing page v2
 
 [this page is online](https://thebehind.com/)
