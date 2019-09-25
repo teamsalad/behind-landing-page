@@ -1,97 +1,69 @@
 <template>
   <v-container>
+    <br />
+    <br />
     <v-row>
-      <v-col cols="12" md="6" align-self="center">
+      <v-col cols="12" md="7" align-self="center">
         <div id="company-info">
-          <div>
-            <v-row no-gutters justify="center">
-              <v-col cols="8" md="6">
-                <v-img src="@/assets/behind-logo-whitebg.png" alt="로고" contain />
-              </v-col>
-            </v-row>
-            <!-- <v-row no-gutters justify="center">
-              <span class="font-weight-bold headline">{{ title }}</span>
-            </v-row>-->
-            <br />
-            <v-row no-gutters justify="center">
-              <span class="overline font-weight-light text-uppercase">{{ subtitle }}</span>
-            </v-row>
-          </div>
-          <br />
           <div class="text-center font-weight-bold">
-            <div>
+            <div class="text-left">
               <span v-if="!isMobile()" class="display-1 font-weight-bold">{{ oneLiner }}</span>
               <pre v-else class="display-1 font-weight-bold">{{ oneLiner }}</pre>
             </div>
-            <span class="font-weight-bold">{{ description }}</span>
+            <br />
+            <br />
+            <pre class="headline font-weight-bold text-left">{{ description }}</pre>
           </div>
         </div>
-        <div
-          id="partners"
-          v-for="(partnerEmployee, index) in partnerEmployees"
-          v-bind:key="index"
-          class="text-center"
-        >
-          <v-row v-if="currCompanyIndex == index">
-            <v-col cols="5" md="6">
-              <v-img
-                v-bind:src="require(`@/assets/companyLogos/${partnerEmployee}.png`)"
-                height="10vh"
-                contain
-              />
-            </v-col>
-            <v-col cols="7" md="6" align-self="center">
-              <span class="font-weight-black text-center body-1">{{ askCurrEmployee }}</span>
-            </v-col>
-          </v-row>
-          <div
-            class="d-none"
-          >카카오, LG전자, 삼성전자, CJ E&M, 현대카드, 네이버, 제일기획, 기업은행, 국민은행, DHL, Fedex, 현대자동차, Lockheed Martin, Facebook, 강남언니, 라인</div>
-        </div>
         <br />
-        <div id="phone-registration">
-          <form @submit="OnRegisterPhoneNumber">
-            <v-text-field
-              v-model="userPhoneNumber"
-              placeholder="010-1234-5678"
-              v-bind:label="phoneNumberLabel"
-              autofocus
-              outlined
-              clearable
-              class="font-weight-light"
-            ></v-text-field>
-            <v-btn
-              v-bind:disabled="phoneRegisterDisabled"
-              type="submit"
-              outlined
-              block
-              color="indigo"
-              class="font-weight-bold"
-            >{{ phoneRegBtnText }}</v-btn>
-          </form>
-        </div>
-        <!-- <div id="email-registration">
+        <div id="email-registration">
           <form @submit="OnRegisterEmail">
-            <v-text-field
-              v-model="userEmail"
-              placeholder="infront@thebehind.com"
-              v-bind:label="emailLabel"
-              autofocus
-              outlined
-              clearable
-              class="font-weight-light"
-            ></v-text-field>
-            <v-btn
-              type="submit"
-              outlined
-              block
-              color="indigo"
-              class="font-weight-medium"
-            >{{ emailRegBtnText }}</v-btn>
+            <v-row>
+              <v-text-field
+                v-model="userEmail"
+                placeholder="behind.youngjun@gmail.com"
+                v-bind:label="emailLabel"
+                autofocus
+                outlined
+                clearable
+                class="font-weight-light"
+              >
+                <template slot="append">
+                  <v-btn type="submit" tile large icon color="indigo">
+                    <v-icon>mdi-send</v-icon>
+                  </v-btn>
+                </template>
+              </v-text-field>
+            </v-row>
           </form>
-        </div>-->
+        </div>
         <br />
-        <v-row no-gutters justify="end">
+        <v-row no-gutters justify="end" class="d-flex align-center">
+          <v-col cols="3" md="3">
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <a v-on="on" href="#">
+                  <v-img src="@/assets/apple-appstore-icon.png" alt="앱스토어" contain max-height="44" />
+                </a>
+              </template>
+              <span>behind 앱스토어로 이동</span>
+            </v-tooltip>
+          </v-col>
+          <v-col cols="3" md="2">
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <a v-on="on" href="#">
+                  <v-img
+                    src="@/assets/google-playstore-icon.png"
+                    alt="플레이스토어"
+                    contain
+                    max-height="44"
+                  />
+                </a>
+              </template>
+              <span>behind 플레이스토어로 이동</span>
+            </v-tooltip>
+          </v-col>
           <v-col cols="3" md="2">
             <v-tooltip top>
               <template v-slot:activator="{ on }">
@@ -99,7 +71,7 @@
                   <v-img src="@/assets/fbicon.png" alt="페이스북페이지" contain max-height="44" />
                 </a>
               </template>
-              <span>behind facebook page로 이동</span>
+              <span>behind 페이스북페이지로 이동</span>
             </v-tooltip>
           </v-col>
           <v-col cols="4" md="2">
@@ -113,18 +85,40 @@
         </v-row>
         <br />
       </v-col>
-      <v-col id="prototype-photo-column" cols="12" md="6" align-self="center">
+      <v-col id="prototype-photo-column" cols="12" md="5" align-self="end">
         <v-row no-gutters justify="center">
           <v-img
-            src="@/assets/landing-iphone.png"
+            src="@/assets/landing-iphone-cut.png"
             alt="앱 예시 이미지"
             contain
             v-bind:max-width="prototypePhotoWidth"
             v-bind:max-height="prototypePhotoHeight"
           />
         </v-row>
+        <br />
+        <br />
       </v-col>
     </v-row>
+    <!-- company logos slide -->
+
+    <div
+      id="partners"
+      v-for="(partnerEmployee, index) in partnerEmployees"
+      v-bind:key="index"
+      class="text-center"
+    >
+      <v-row v-if="currCompanyIndex == index">
+        <v-img
+          v-bind:src="require(`@/assets/companyLogos/${partnerEmployee}.png`)"
+          height="10vh"
+          contain
+        />
+      </v-row>
+      <div
+        class="d-none"
+      >카카오, LG전자, 삼성전자, CJ ENM, 현대카드, 네이버, 제일기획, 기업은행, 국민은행, DHL, Fedex, 현대자동차, Lockheed Martin, Facebook, 강남언니, 라인</div>
+    </div>
+    <div id="key-features"></div>
   </v-container>
 </template>
 <script>
@@ -163,8 +157,8 @@ export default {
       askCurrEmployee: "지금 바로 물어보세요!",
       registerServerUrl:
         "https://hq80mfsrh3.execute-api.ap-northeast-2.amazonaws.com/production/email-subscriptions",
-      emailLabel: "출시시 사전등록 쿠폰을 보내드립니다",
-      emailRegBtnText: "등록하고 쿠폰받기",
+      emailLabel: "email 입력하고 10% 즉시 할인받기",
+      emailRegBtnText: "등록",
       emailRegSuccessMsg:
         "가 성공적으로 사전등록 되었습니다.\n출시시 사전등록 쿠폰을 보내드립니다.",
       emailRegFailMsg: "죄송합니다.\n현재 신규등록이 제한되어 있습니다.",
@@ -201,17 +195,15 @@ export default {
         .post(registerServerUrl, {
           email: email
         })
-        .then(function(response) {
-          // console.log(response.data);
+        .then(function() {
           alert(email + emailRegSuccessMsg);
         })
-        .catch(function(error) {
-          // console.error(error);
+        .catch(function() {
           alert(emailRegFailMsg);
         });
     },
     validEmail: function(email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
     // update the rolling company (logo) index
@@ -250,7 +242,7 @@ export default {
       const userPhoneNumber = this.userPhoneNumber;
       const registerServerUrl = this.registerServerUrl;
       const phoneNumberRegSucessMsg = this.phoneNumberRegSucessMsg;
-      const emailRegFailMsg = this.emailRegFailMsg;
+      // const emailRegFailMsg = this.emailRegFailMsg;
 
       var currentDateWithFormat = new Date().toJSON().slice(0, 10);
       const stringToSend =
@@ -263,13 +255,12 @@ export default {
         .post(registerServerUrl, {
           email: stringToSend
         })
-        .then(function(response) {
+        .then(function() {
           // console.log(response.data);
           alert(userPhoneNumber + phoneNumberRegSucessMsg);
         })
-        .catch(function(error) {
-          // console.error(error);
-          alert(phoneRegFailMsg);
+        .catch(function() {
+          alert(this.phoneRegFailMsg);
         });
     }
   }
