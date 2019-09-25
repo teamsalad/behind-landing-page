@@ -1,3 +1,3 @@
-# BEHIND landing page v1
+# BEHIND landing page
 
 [this page is online](https://thebehind.com/)
