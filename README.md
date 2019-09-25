@@ -1,4 +1,4 @@
-# BEHIND landing page v2
+# BEHIND landing page v1
 built with vue 2.6 & vuetify 2.0
 
 [this page is online](https://thebehind.com/)
