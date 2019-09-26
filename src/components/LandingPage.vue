@@ -28,13 +28,15 @@
                   outlined
                   clearable
                   class="font-weight-light"
-                >
-                  <template slot="append">
-                    <v-btn type="submit" tile large icon color="indigo">
-                      <v-icon>mdi-send</v-icon>
-                    </v-btn>
-                  </template>
-                </v-text-field>
+                ></v-text-field>
+                <v-btn
+                  v-bind:disabled="emailRegisterDisabled"
+                  type="submit"
+                  outlined
+                  block
+                  color="indigo"
+                  class="font-weight-bold mt-n6"
+                >{{ emailRegBtnText }}</v-btn>
               </v-row>
             </form>
           </div>
@@ -215,28 +217,19 @@
     <br />
     <div id="FAQs">
       <p class="display-1 font-weight-bold">FAQs</p>
-
-      <p>
+      <p class="pl-4">
         <span class="headline font-weight-bold">Q</span>
         <span class="title pl-4">서비스 이용시 비용이 발생하나요?</span>
       </p>
-      <p>
+      <p class="pl-6">
         <span class="headline font-weight-bold">A</span>
         <span class="title pl-4">당근쓰</span>
       </p>
-      <p>
+      <p class="pl-4">
         <span class="headline font-weight-bold">Q</span>
         <span class="title pl-4">질문을 했는데 답변이 없어요</span>
       </p>
-      <p>
-        <span class="headline font-weight-bold">A</span>
-        <span class="title pl-4">기다려쓰</span>
-      </p>
-      <p>
-        <span class="headline font-weight-bold">Q</span>
-        <span class="title pl-4">질문을 했는데 답변이 없어요</span>
-      </p>
-      <p>
+      <p class="pl-6">
         <span class="headline font-weight-bold">A</span>
         <span class="title pl-4">기다려쓰</span>
       </p>
@@ -245,9 +238,6 @@
 </template>
 <script>
 export default {
-  created() {
-    this.interval = setInterval(() => this.updateCurrCompanyIndex(), 2000);
-  },
   mounted() {
     this.setPrototypePhotoSize();
     //<![CDATA[
@@ -279,19 +269,13 @@ export default {
       askCurrEmployee: "지금 바로 물어보세요!",
       registerServerUrl:
         "https://hq80mfsrh3.execute-api.ap-northeast-2.amazonaws.com/production/email-subscriptions",
-      emailLabel: "email 입력하고 10% 즉시 할인받기",
-      emailRegBtnText: "등록",
-      emailRegSuccessMsg:
-        "가 성공적으로 사전등록 되었습니다.\n출시시 사전등록 쿠폰을 보내드립니다.",
-      emailRegFailMsg: "죄송합니다.\n현재 신규등록이 제한되어 있습니다.",
+      emailLabel: "email",
+      emailRegBtnText: "email 등록하고 10% 할인 받기",
+      emailRegisterDisabled: false,
+      emailRegSuccessMsg: "가 성공적으로 등록 되었습니다.",
+      emailRegFailMsg:
+        "죄송합니다.\n현재 등록이 지연되고 있습니다.\n나중에 다시 시도해주세요.",
       userEmail: "",
-
-      phoneRegisterDisabled: false,
-      phoneNumberLabel: "전화번호",
-      phoneRegBtnText: "전화번호 등록하고 10% 할인 받기",
-      userPhoneNumber: "",
-      phoneNumberRegSucessMsg: "가 성공적으로 등록되었습니다.",
-      phoneRegFailMsg: "죄송합니다.\n현재 등록에 문제가 있습니다.",
 
       showArrows: false
     };
@@ -314,10 +298,17 @@ export default {
         return;
       }
 
+      var currentDateWithFormat = new Date().toJSON().slice(0, 10);
+      const stringToSend =
+        "등록일: " + currentDateWithFormat + ", 이메일: " + email;
+
+      this.emailRegBtnText = "등록중입니다. 잠시만 기다려주세요.";
+      this.emailRegisterDisabled = true;
+
       // store this email (this.userEmail) to DB here
       this.axios
         .post(registerServerUrl, {
-          email: email
+          email: stringToSend
         })
         .then(function() {
           alert(email + emailRegSuccessMsg);
@@ -330,14 +321,6 @@ export default {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-    // update the rolling company (logo) index
-    updateCurrCompanyIndex() {
-      this.currCompanyIndex++;
-      if (this.currCompanyIndex >= this.partnerEmployees.length) {
-        this.currCompanyIndex = 0;
-      }
-    },
-
     isMobile() {
       if (screen.width <= 760) {
         return true;
@@ -359,33 +342,6 @@ export default {
       } else {
         this.prototypePhotoHeight = screen.height;
       }
-    },
-    OnRegisterPhoneNumber: function(e) {
-      e.preventDefault();
-
-      const userPhoneNumber = this.userPhoneNumber;
-      const registerServerUrl = this.registerServerUrl;
-      const phoneNumberRegSucessMsg = this.phoneNumberRegSucessMsg;
-      // const emailRegFailMsg = this.emailRegFailMsg;
-
-      var currentDateWithFormat = new Date().toJSON().slice(0, 10);
-      const stringToSend =
-        "등록일: " + currentDateWithFormat + ", 전화번호: " + userPhoneNumber;
-
-      this.phoneRegBtnText = "등록중입니다. 잠시만 기다려주세요.";
-      this.phoneRegisterDisabled = true;
-
-      this.axios
-        .post(registerServerUrl, {
-          email: stringToSend
-        })
-        .then(function() {
-          // console.log(response.data);
-          alert(userPhoneNumber + phoneNumberRegSucessMsg);
-        })
-        .catch(function() {
-          alert(this.phoneRegFailMsg);
-        });
     }
   }
 };
