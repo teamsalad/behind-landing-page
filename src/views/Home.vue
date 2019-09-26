@@ -8,8 +8,8 @@
         <v-col v-if="!isMobile()" cols="6" class="d-flex justify-space-around align-center">
           <a href="#" v-scroll-to="'#top-bar'" class="title">Home</a>
           <a href="#" v-scroll-to="'#key-features'" class="title">Features</a>
-          <a href="#" v-scroll-to="''" class="title">How it works</a>
-          <a href="#" v-scroll-to="'#footer'" class="title">FAQs</a>
+          <a href="#" v-scroll-to="'#how-it-works'" class="title">How it works</a>
+          <a href="#" v-scroll-to="'#FAQs'" class="title">FAQs</a>
         </v-col>
       </v-row>
     </div>
