@@ -66,7 +66,7 @@ export default {
       "naver",
       "samsung-electronics"
     ],
-    customerService: "문의: behind.youngjun@gmail.com"
+    customerService: "문의: support@thebehind.com"
   }),
   methods: {
     isMobile() {
