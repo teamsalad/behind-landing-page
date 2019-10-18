@@ -24,7 +24,11 @@
       />
     </v-content>
     <div id="footer" class="text-center body-2 pa-1">
-      <div>{{ customerService }}</div>
+      <router-link to="/terms-of-use">서비스이용약관</router-link>
+      &nbsp;&nbsp;
+      <router-link to="/privacy-policy">개인정보처리방침</router-link>
+      &nbsp;&nbsp;
+      <span>{{ customerService }}</span>
       <div>&copy; {{ new Date().getFullYear() }} {{ title }}</div>
     </div>
   </v-app>

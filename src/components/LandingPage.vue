@@ -216,23 +216,6 @@
     <br />
     <br />
     <div id="FAQs">
-      <p class="display-1 font-weight-bold">FAQs</p>
-      <p class="pl-4">
-        <span class="headline font-weight-bold">Q</span>
-        <span class="title pl-4">서비스 이용시 비용이 발생하나요?</span>
-      </p>
-      <p class="pl-6">
-        <span class="headline font-weight-bold">A</span>
-        <span class="title pl-4">당근쓰</span>
-      </p>
-      <p class="pl-4">
-        <span class="headline font-weight-bold">Q</span>
-        <span class="title pl-4">질문을 했는데 답변이 없어요</span>
-      </p>
-      <p class="pl-6">
-        <span class="headline font-weight-bold">A</span>
-        <span class="title pl-4">기다려쓰</span>
-      </p>
     </div>
   </v-container>
 </template>
