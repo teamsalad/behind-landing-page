@@ -22,7 +22,7 @@
               <v-row>
                 <v-text-field
                   v-model="userEmail"
-                  placeholder="behind.youngjun@gmail.com"
+                  placeholder="aquinas.choi@thebehind.com"
                   v-bind:label="emailLabel"
                   autofocus
                   outlined
@@ -60,7 +60,7 @@
             <v-col cols="3" md="2">
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
-                  <a v-on="on" href="#">
+                  <a v-on="on" href="https://play.google.com/store/apps/details?id=com.thebehind.behind">
                     <v-img
                       src="@/assets/google-playstore-icon.png"
                       alt="플레이스토어"
@@ -253,7 +253,7 @@ export default {
       registerServerUrl:
         "https://hq80mfsrh3.execute-api.ap-northeast-2.amazonaws.com/production/email-subscriptions",
       emailLabel: "email",
-      emailRegBtnText: "email 등록하고 10% 할인 받기",
+      emailRegBtnText: "email 사전등록",
       emailRegisterDisabled: false,
       emailRegSuccessMsg: "가 성공적으로 등록 되었습니다.",
       emailRegFailMsg:
